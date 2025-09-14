@@ -3,3 +3,7 @@
 
 # Ignore Python virtual environment
 venv/
+
+# ignoring yolo stuff
+yolo_model/
+
