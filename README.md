@@ -1,7 +1,5 @@
 
----
 
-```markdown
 # 🎯 YOLO Object Selection
 
 ## Overview
