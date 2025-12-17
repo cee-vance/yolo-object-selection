@@ -2,17 +2,13 @@ import cv2
 import os
 from datetime import datetime
 
-# Set camera indices (adjust if needed)
-left_cam_index = 0
-right_cam_index = 1
+# Use a single camera index (adjust if needed)
+cam_index = 1
+cap = cv2.VideoCapture(cam_index)
 
-# Open both cameras
-cap_left = cv2.VideoCapture(left_cam_index)
-cap_right = cv2.VideoCapture(right_cam_index)
-
-# Check if cameras opened successfully
-if not cap_left.isOpened() or not cap_right.isOpened():
-    print("Error: Could not open one or both cameras.")
+# Check if camera opened successfully
+if not cap.isOpened():
+    print("Error: Could not open camera.")
     exit()
 
 # Create output directory
@@ -21,15 +17,18 @@ os.makedirs("stereo_images", exist_ok=True)
 print("Press SPACE to capture a stereo pair, ESC to quit.")
 
 while True:
-    # Read frames
-    ret_left, frame_left = cap_left.read()
-    ret_right, frame_right = cap_right.read()
-
-    if not ret_left or not ret_right:
-        print("Error: Could not read from cameras.")
+    ret, frame = cap.read()
+    if not ret:
+        print("Error: Could not read from camera.")
         break
 
-    # Show both frames side by side
+    # Split the stitched frame into left and right halves
+    height, width = frame.shape[:2]
+    mid = width // 2
+    frame_left = frame[:, :mid]
+    frame_right = frame[:, mid:]
+
+    # Show both halves side by side (optional, just to visualize)
     combined = cv2.hconcat([frame_left, frame_right])
     cv2.imshow("Stereo Cameras (Left | Right)", combined)
 
@@ -45,6 +44,5 @@ while True:
         print(f"Saved pair: {left_filename}, {right_filename}")
 
 # Release resources
-cap_left.release()
-cap_right.release()
+cap.release()
 cv2.destroyAllWindows()
