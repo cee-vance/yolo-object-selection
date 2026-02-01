@@ -27,4 +27,6 @@ cd yolo-object-selection
 pip install -r requirements.txt
 
 # Run detection
-python detect.py --source 0  # webcam
+python yolo-select-laser.py   # moves laser pointer to point to selected object
+python 
+
