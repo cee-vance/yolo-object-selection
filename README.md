@@ -27,6 +27,8 @@ cd yolo-object-selection
 pip install -r requirements.txt
 
 # Run detection
-python yolo-select-laser.py   # moves laser pointer to point to selected object
-python 
+python yolo_object_select_laser.py   # moves laser pointer to point to selected object
+python yolo_object_select_voice.py   # uses voice input to select the object
+python yolo-object-select-depth.py   # new-feature displays range calibrated with stereo camera
+
 
